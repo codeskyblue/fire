@@ -29,11 +29,13 @@ ID                   TIME       CMD        RUNNING
 1. `JOB_ID=$(fire -b sh -c "while true; do sleep 1s && echo hello; done")`, use -b to start program in background.
 2. var $JOB_ID specify the running program.
 3. `fire -m ps` will see program is still running.
+
 ```
 ID                   TIME       CMD        RUNNING
 72c7tni2gl           10:43:19   sh         true
 5tb2zu1a34           10:35:44   echo       false
 ```
+
 4. `fire -m kill 72`, to kill program. (NOTICE, you just need to use the prefix of ID)
 
 ### a complex usage
