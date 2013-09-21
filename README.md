@@ -1,5 +1,5 @@
 ## fire
-This is a remote execute tools, function like sshd+ssh but offers some interesting function.
+This is a remote execute tools, function like sshd+ssh but offers some **interesting** function.
 
 including 
 
