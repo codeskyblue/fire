@@ -2,8 +2,10 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
-	"github.com/shxsun/exec"
+	"os/exec"
+	//"github.com/shxsun/exec"
 	"github.com/shxsun/filedist/fire/utils"
 	"strings"
 	"sync"
@@ -71,8 +73,8 @@ func NewRpcServer() *RpcServer {
 
 func (rs *RpcServer) Run(r Container, w *Response) error {
 	cmd := exec.Command(r.Name, r.Args...)
-	cmd.Timeout = r.Timeout
-	cmd.IsClean = r.Kill
+	//cmd.Timeout = r.Timeout
+	//cmd.IsClean = r.Kill
 	uid := rs.tidx.New()
 	var g = Log{}
 	g.State.result = make(chan error)
@@ -101,7 +103,10 @@ func (rs *RpcServer) Kill(id string, w *Response) error {
 		return err
 	}
 	g := rs.logs[uid]
-	return g.Cmd.KillAll()
+	if g.Cmd.Process == nil {
+		return errors.New("not started")
+	}
+	return g.Cmd.Process.Kill()
 }
 
 func (rs *RpcServer) Wait(id string, w *Response) error {
